@@ -254,17 +254,6 @@ Wire Wire Line
 Wire Wire Line
 	10450 5650 10450 5700
 Connection ~ 10450 5650
-Wire Wire Line
-	7700 5200 7600 5200
-Wire Wire Line
-	7300 5550 7300 5600
-Connection ~ 7300 5550
-Wire Wire Line
-	7700 5550 7300 5550
-Wire Wire Line
-	7700 5300 7700 5550
-Wire Wire Line
-	7300 5500 7300 5550
 $Comp
 L power:GND #PWR017
 U 1 1 603FE01A
@@ -279,12 +268,12 @@ $EndComp
 $Comp
 L Connector:Conn_01x02_Female J-LASER1
 U 1 1 603FD5CE
-P 7900 5200
-F 0 "J-LASER1" H 7928 5176 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 7928 5085 50  0000 L CNN
-F 2 "TerminalBlock:TerminalBlock_Altech_AK300-2_P5.00mm" H 7900 5200 50  0001 C CNN
-F 3 "~" H 7900 5200 50  0001 C CNN
-	1    7900 5200
+P 8150 5200
+F 0 "J-LASER1" H 8178 5176 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8178 5085 50  0000 L CNN
+F 2 "TerminalBlock:TerminalBlock_Altech_AK300-2_P5.00mm" H 8150 5200 50  0001 C CNN
+F 3 "~" H 8150 5200 50  0001 C CNN
+	1    8150 5200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1058,4 +1047,32 @@ Wire Wire Line
 Connection ~ 10050 1550
 Wire Wire Line
 	10050 1550 9900 1550
+$Comp
+L Device:R_POT RV-LASER1
+U 1 1 603B77FE
+P 7750 5200
+F 0 "RV-LASER1" H 7681 5246 50  0000 R CNN
+F 1 "R_POT" H 7681 5155 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Piher_T-16H_Single_Horizontal" H 7750 5200 50  0001 C CNN
+F 3 "~" H 7750 5200 50  0001 C CNN
+	1    7750 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 5500 7300 5550
+Wire Wire Line
+	7750 5050 7600 5050
+Wire Wire Line
+	7600 5050 7600 5200
+Wire Wire Line
+	7950 5200 7900 5200
+Wire Wire Line
+	7950 5300 7850 5300
+Wire Wire Line
+	7850 5300 7850 5550
+Wire Wire Line
+	7850 5550 7300 5550
+Connection ~ 7300 5550
+Wire Wire Line
+	7300 5550 7300 5600
 $EndSCHEMATC
