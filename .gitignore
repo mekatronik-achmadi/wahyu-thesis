@@ -1,0 +1,8 @@
+/hardware/firmware/.dep/
+/hardware/firmware/.clangd
+/hardware/firmware/build/
+/hardware/firmware/compile_commands.json
+/hardware/pcb/fp-info-cache
+/hardware/pcb/bom/
+/hardware/pcb/*-bak
+/hardware/pcb/*-cache.lib
