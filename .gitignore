@@ -2,6 +2,7 @@
 /hardware/firmware/.clangd
 /hardware/firmware/build/
 /hardware/firmware/compile_commands.json
+/hardware/firmware/*.creator.user
 /hardware/pcb/fp-info-cache
 /hardware/pcb/bom/
 /hardware/pcb/*-bak

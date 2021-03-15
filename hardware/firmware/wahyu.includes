@@ -4,3 +4,8 @@
 /home/wanggor/thesis/ChibiOS_STM32/os/hal/include
 /home/wanggor/thesis/ChibiOS_STM32/os/rt/include
 /home/wanggor/thesis/ChibiOS_STM32/os/various
+/opt/stm32chlib/chibios30/os/hal/boards/BLUEPILL_F103
+/opt/stm32chlib/chibios30/os/hal/lib/streams
+/opt/stm32chlib/chibios30/os/hal/include
+/opt/stm32chlib/chibios30/os/rt/include
+/opt/stm32chlib/chibios30/os/various
