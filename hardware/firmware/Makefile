@@ -86,6 +86,7 @@ endif
 PROJECT = bluepill
 
 # Imported source files and paths
+#CHIBIOS = /home/wanggor/thesis/ChibiOS_STM32
 CHIBIOS = /opt/stm32chlib/chibios30
 # Startup files.
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_stm32f1xx.mk
@@ -112,9 +113,9 @@ CSRC =  $(STARTUPSRC) \
         $(HALSRC) \
         $(PLATFORMSRC) \
         $(BOARDSRC) \
-		$(CHIBIOS)/os/various/syscalls.c \
+		    $(CHIBIOS)/os/various/syscalls.c \
         $(CHIBIOS)/os/various/evtimer.c \
-        $(CHIBIOS)/os/various/shell.c \
+        shell.c \
         $(CHIBIOS)/os/hal/lib/streams/chprintf.c \
         $(CHIBIOS)/os/hal/lib/streams/memstreams.c \
         $(CHIBIOS)/os/hal/lib/streams/nullstreams.c \
