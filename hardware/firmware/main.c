@@ -29,7 +29,6 @@ int main(void) {
   
   while(true){
     cmd_Loop();
-    motor_Run(MOTOR2,0,200,500);
     chThdSleepMilliseconds(1000);
   }
 }

@@ -7,13 +7,27 @@
 
 extern SerialUSBDriver SDU1;
 
+static void motor1_run(uint8_t direction, uint16_t step, uint16_t speed){
+    uint16_t stepItr;
+
+    if(direction==0){palClearPad(MOTOR1_PORT,MOTOR1_DIR);}
+    else{palSetPad(MOTOR1_PORT,MOTOR1_DIR);}
+
+    for(stepItr=0;stepItr<step;stepItr++){
+        palSetPad(MOTOR1_PORT,MOTOR1_STEP);
+        chThdSleepMicroseconds(speed);
+        palClearPad(MOTOR1_PORT,MOTOR1_STEP);
+        chThdSleepMicroseconds(speed);
+    }
+}
+
 static void motor2_run(uint8_t direction, uint16_t step, uint16_t speed){
-    uint16_t stepIt;
+    uint16_t stepItr;
 
     if(direction==0){palClearPad(MOTOR2_PORT,MOTOR2_DIR);}
     else{palSetPad(MOTOR2_PORT,MOTOR2_DIR);}
 
-    for(stepIt=0;stepIt<step;stepIt++){
+    for(stepItr=0;stepItr<step;stepItr++){
         palSetPad(MOTOR2_PORT,MOTOR2_STEP);
         chThdSleepMicroseconds(speed);
         palClearPad(MOTOR2_PORT,MOTOR2_STEP);
@@ -21,23 +35,31 @@ static void motor2_run(uint8_t direction, uint16_t step, uint16_t speed){
     }
 }
 
-/**
- * @brief Run Motor function
- * @param[in] uint8 Motor Index (1,2,3,4)
- * @param[in] uint8 Rotate direction (0 or 1)
- * @param[in] uint16 Number of step
- * @param[in] uint16 Step change interval in millisecond
- */
-void motor_Run(uint8_t motor, uint8_t direction, uint16_t step, uint16_t speed){
-    switch (motor) {
-        case MOTOR1: break;
-        case MOTOR2: motor2_run(direction,step,speed); break;
-        case MOTOR3: break;
-        case MOTOR4: break;
+static void motor3_run(uint8_t direction, uint16_t step, uint16_t speed){
+    uint16_t stepItr;
 
-        default:
-            chprintf((BaseSequentialStream *)&SDU1,"motor number outside intended\r\n");
-            break;
+    if(direction==0){palClearPad(MOTOR3_PORT,MOTOR3_DIR);}
+    else{palSetPad(MOTOR3_PORT,MOTOR3_DIR);}
+
+    for(stepItr=0;stepItr<step;stepItr++){
+        palSetPad(MOTOR3_PORT,MOTOR3_STEP);
+        chThdSleepMicroseconds(speed);
+        palClearPad(MOTOR3_PORT,MOTOR3_STEP);
+        chThdSleepMicroseconds(speed);
+    }
+}
+
+static void motor4_run(uint8_t direction, uint16_t step, uint16_t speed){
+    uint16_t stepItr;
+
+    if(direction==0){palClearPad(MOTOR4_PORT,MOTOR4_DIR);}
+    else{palSetPad(MOTOR4_PORT,MOTOR4_DIR);}
+
+    for(stepItr=0;stepItr<step;stepItr++){
+        palSetPad(MOTOR4_PORT,MOTOR4_STEP);
+        chThdSleepMicroseconds(speed);
+        palClearPad(MOTOR4_PORT,MOTOR4_STEP);
+        chThdSleepMicroseconds(speed);
     }
 }
 
