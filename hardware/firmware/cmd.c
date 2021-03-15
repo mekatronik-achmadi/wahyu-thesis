@@ -6,6 +6,7 @@
 
 #include "usbcdc.h"
 #include "cmd.h"
+#include "motor.h"
 
 #define SHELL_WA_SIZE   THD_WORKING_AREA_SIZE(512)
 
@@ -22,8 +23,18 @@ static void cmd_test(BaseSequentialStream *chp, int argc, char *argv[]) {
     chprintf(chp,"Serial OK\r\n");
 }
 
+static void cmd_motortest(BaseSequentialStream *chp, int argc, char *argv[]) {
+    (void)argv;
+    if(argc > 0){chprintf(chp,"Usage: motor\r\n");return;}
+
+    chprintf(chp,"Test on Motor 2 \r\n");
+    motor_Run(MOTOR2,0,300,500);
+    chprintf(chp,"Finished \r\n");
+}
+
 static const ShellCommand commands[] = {
     {"test", cmd_test},
+    {"motor",cmd_motortest},
     {NULL, NULL}
 };
 
