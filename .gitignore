@@ -3,6 +3,7 @@
 /hardware/firmware/build/
 /hardware/firmware/compile_commands.json
 /hardware/firmware/*.creator.user
+/hardware/firmware/wahyu_doc/
 /hardware/pcb/fp-info-cache
 /hardware/pcb/bom/
 /hardware/pcb/*-bak

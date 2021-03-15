@@ -1,3 +1,11 @@
+/**
+ * @file    main.c
+ * @brief   Main code.
+ *
+ * @addtogroup Main
+ * @{
+ */
+
 #include "ch.h"
 #include "hal.h"
 
@@ -6,7 +14,13 @@
 #include "motor.h"
 
 static THD_WORKING_AREA(waLED, 128);
-static THD_FUNCTION(thdLED, arg) {
+#define runLED_Loop THD_FUNCTION
+
+/**
+ * @brief LED thread
+ * @details LED run indicator thred
+ */
+static runLED_Loop(thdLED, arg) {
 
     (void)arg;
 
@@ -17,6 +31,11 @@ static THD_FUNCTION(thdLED, arg) {
     }
 }
 
+/**
+ * @brief Main Function
+ * @details First entry of all
+ * @return Never reached
+ */
 int main(void) {
   halInit();
   chSysInit();
@@ -32,3 +51,5 @@ int main(void) {
     chThdSleepMilliseconds(1000);
   }
 }
+
+/** @} */

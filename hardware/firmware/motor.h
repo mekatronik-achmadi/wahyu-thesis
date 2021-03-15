@@ -1,3 +1,10 @@
+/**
+ * @file    motor.h
+ * @brief   Stepper Motor header.
+ *
+ * @addtogroup Mechatronic
+ * @{
+ */
 #ifndef _MOTOR_H_
 #define _MOTOR_H_
 
@@ -29,13 +36,33 @@
 #define MOTOR4_CW   0
 #define MOTOR4_CCW  1
 
+/**
+ * @brief Default Motor Speed as a microsecond delay
+ */
 #define MOTOR_SPEED 500
+
+/**
+ * @brief Default Clock-Wise value
+ */
 #define MOTOR_CW    0
+
+/**
+ * @brief Default Counter Clock-Wise value
+ */
 #define MOTOR_CCW   1
+
+/**
+ * @brief Default Motor On/Run value
+ */
 #define MOTOR_ON    1
+
+/**
+ * @brief Default Motor Off/Stop value
+ */
 #define MOTOR_OFF   0
 
 void motor_Run(uint8_t mot_num, uint8_t mot_dir, uint16_t mot_step);
 void motor_Init(void);
 
 #endif
+/** @} */

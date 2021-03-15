@@ -1,3 +1,11 @@
+/**
+ * @file    motor.c
+ * @brief   Stepper Motor code.
+ *
+ * @addtogroup Mechatronic
+ * @{
+ */
+
 #include "ch.h"
 #include "hal.h"
 
@@ -5,24 +13,41 @@
 
 #include "motor.h"
 
+/**
+ * @brief Motor 1 Run status variable
+ */
 uint8_t motor1_run = MOTOR_OFF;
 static uint8_t motor1_dir = MOTOR1_CW;
 static uint16_t motor1_step;
 
+/**
+ * @brief Motor 2 Run status variable
+ */
 uint8_t motor2_run = MOTOR_OFF;
 static uint8_t motor2_dir = MOTOR2_CW;
 static uint16_t motor2_step;
 
+/**
+ * @brief Motor 3 Run status variable
+ */
 uint8_t motor3_run = MOTOR_OFF;
 static uint8_t motor3_dir = MOTOR3_CW;
 static uint16_t motor3_step;
 
+/**
+ * @brief Motor 4 Run status variable
+ */
 uint8_t motor4_run = MOTOR_OFF;
 static uint8_t motor4_dir = MOTOR4_CW;
 static uint16_t motor4_step;
 
 static THD_WORKING_AREA(waMot1_Run, 128);
-static THD_FUNCTION(thdMot1_Run, arg) {
+#define Motor1_runLoop THD_FUNCTION
+
+/**
+ * @brief Motor 1 Loop thread
+ */
+static Motor1_runLoop(thdMot1_Run, arg) {
     (void)arg;
     uint16_t stepItr;
 
@@ -52,7 +77,12 @@ static THD_FUNCTION(thdMot1_Run, arg) {
 }
 
 static THD_WORKING_AREA(waMot2_Run, 128);
-static THD_FUNCTION(thdMot2_Run, arg) {
+#define Motor2_runLoop THD_FUNCTION
+
+/**
+ * @brief Motor 2 Loop thread
+ */
+static Motor2_runLoop(thdMot2_Run, arg) {
     (void)arg;
     uint16_t stepItr;
 
@@ -82,7 +112,12 @@ static THD_FUNCTION(thdMot2_Run, arg) {
 }
 
 static THD_WORKING_AREA(waMot3_Run, 128);
-static THD_FUNCTION(thdMot3_Run, arg) {
+#define Motor3_runLoop THD_FUNCTION
+
+/**
+ * @brief Motor 3 Loop thread
+ */
+static Motor3_runLoop(thdMot3_Run, arg) {
     (void)arg;
     uint16_t stepItr;
 
@@ -112,7 +147,12 @@ static THD_FUNCTION(thdMot3_Run, arg) {
 }
 
 static THD_WORKING_AREA(waMot4_Run, 128);
-static THD_FUNCTION(thdMot4_Run, arg) {
+#define Motor4_runLoop THD_FUNCTION
+
+/**
+ * @brief Motor 4 Loop thread
+ */
+static Motor4_runLoop(thdMot4_Run, arg) {
     (void)arg;
     uint16_t stepItr;
 
@@ -141,6 +181,13 @@ static THD_FUNCTION(thdMot4_Run, arg) {
     }
 }
 
+/**
+ * @brief Motor Run function
+ * @details This function modify global motor variables run by respective loops
+ * @param uint8_t Motor Number, either 1, 2, 3, or 4
+ * @param uint8_t Motor Direction, either 0 or 1
+ * @param uint16_t Motor Step amount
+ */
 void motor_Run(uint8_t mot_num, uint8_t mot_dir, uint16_t mot_step){
     switch(mot_num){
         case MOTOR1: motor1_dir = mot_dir; motor1_step = mot_step; motor1_run = MOTOR_ON; break;
@@ -150,9 +197,13 @@ void motor_Run(uint8_t mot_num, uint8_t mot_dir, uint16_t mot_step){
     }
 }
 
+/**
+ * @brief Motor Loops Initialization
+ */
 void motor_Init(void){
     chThdCreateStatic(waMot1_Run, sizeof(waMot1_Run), NORMALPRIO, thdMot1_Run, NULL);
     chThdCreateStatic(waMot2_Run, sizeof(waMot2_Run), NORMALPRIO, thdMot2_Run, NULL);
     chThdCreateStatic(waMot3_Run, sizeof(waMot3_Run), NORMALPRIO, thdMot3_Run, NULL);
     chThdCreateStatic(waMot4_Run, sizeof(waMot4_Run), NORMALPRIO, thdMot4_Run, NULL);
 }
+/** @} */
