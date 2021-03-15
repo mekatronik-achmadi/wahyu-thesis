@@ -21,13 +21,15 @@ int main(void) {
   halInit();
   chSysInit();
 
-  chThdCreateStatic(waLED, sizeof(waLED), NORMALPRIO, thdLED, NULL);
-
   cmd_Init();
   motor_Init();
 
+  palSetPadMode(GPIOC,13,PAL_MODE_OUTPUT_PUSHPULL);
+  chThdCreateStatic(waLED, sizeof(waLED), NORMALPRIO, thdLED, NULL);
+  
   while(true){
     cmd_Loop();
+    motor_Run(MOTOR2,0,200,500);
     chThdSleepMilliseconds(1000);
   }
 }
