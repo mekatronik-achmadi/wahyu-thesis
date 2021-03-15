@@ -141,7 +141,7 @@ static THD_FUNCTION(thdMot4_Run, arg) {
     }
 }
 
-void motor_Run(uint8 mot_num, uint8_t mot_dir, uint16_t mot_step){
+void motor_Run(uint8_t mot_num, uint8_t mot_dir, uint16_t mot_step){
     switch(mot_num){
         case MOTOR1: motor1_dir = mot_dir; motor1_step = mot_step; motor1_run = MOTOR_ON; break;
         case MOTOR2: motor2_dir = mot_dir; motor2_step = mot_step; motor2_run = MOTOR_ON; break;

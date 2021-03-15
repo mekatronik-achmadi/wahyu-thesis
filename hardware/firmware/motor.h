@@ -35,7 +35,7 @@
 #define MOTOR_ON    1
 #define MOTOR_OFF   0
 
-void motor_Run(uint8 mot_num, uint8_t mot_dir, uint16_t mot_step);
+void motor_Run(uint8_t mot_num, uint8_t mot_dir, uint16_t mot_step);
 void motor_Init(void);
 
 #endif

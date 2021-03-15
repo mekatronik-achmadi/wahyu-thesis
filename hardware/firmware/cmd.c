@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "ch.h"
 #include "hal.h"
 
@@ -25,16 +27,30 @@ static void cmd_test(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 static void cmd_motortest(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void)argv;
-    if(argc > 0){chprintf(chp,"Usage: motor\r\n");return;}
+    if(argc > 0){chprintf(chp,"Usage: motes\r\n");return;}
 
     chprintf(chp,"Test on Motor 2 \r\n");
-    motor_Run(MOTOR2,0,300,500);
-    chprintf(chp,"Finished \r\n");
+    motor_Run(MOTOR2,MOTOR2_CW,300);
+}
+
+static void cmd_motorrun(BaseSequentialStream *chp, int argc, char *argv[]) {
+    uint8_t motnum;
+    uint8_t motdir;
+    uint16_t motstep;
+
+    if(argc != 3){chprintf(chp,"Usage: morun <number> <direction> <steps>\r\n");return;}
+    motnum = atoi(argv[0]);
+    motdir = atoi(argv[1]);
+    motstep = atoi(argv[2]);
+
+    chprintf(chp,"Run on Motor %i at %i dir and %i steps\r\n",motnum,motdir,motstep);
+    motor_Run(motnum,motdir,motstep);
 }
 
 static const ShellCommand commands[] = {
     {"test", cmd_test},
-    {"motor",cmd_motortest},
+    {"motes",cmd_motortest},
+    {"morun",cmd_motorrun},
     {NULL, NULL}
 };
 
