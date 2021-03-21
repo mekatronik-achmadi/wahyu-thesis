@@ -12,6 +12,9 @@
 #include "chprintf.h"
 
 #include "motor.h"
+#include <stdint.h>
+
+extern SerialUSBDriver SDU1;
 
 /**
  * @brief Motor 1 Run status variable
@@ -194,6 +197,21 @@ void motor_Run(uint8_t mot_num, uint8_t mot_dir, uint16_t mot_step){
         case MOTOR2: motor2_dir = mot_dir; motor2_step = mot_step; motor2_run = MOTOR_ON; break;
         case MOTOR3: motor3_dir = mot_dir; motor3_step = mot_step; motor3_run = MOTOR_ON; break;
         case MOTOR4: motor4_dir = mot_dir; motor4_step = mot_step; motor4_run = MOTOR_ON; break;
+    }
+}
+
+/**
+ * @brief Get Run status of motor
+ * @param uint8_t Motor Number, either 1, 2, 3, or 4
+ */
+uint8_t motor_IsRun(uint8_t mot_num){
+
+    switch (mot_num) {
+        case MOTOR1: return motor1_run; break;
+        case MOTOR2: return motor2_run; break;
+        case MOTOR3: return motor3_run; break;
+        case MOTOR4: return motor4_run; break;
+        default: return 0; break;
     }
 }
 

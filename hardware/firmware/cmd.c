@@ -6,6 +6,7 @@
  * @{
  */
 
+#include <stdint.h>
 #include <stdlib.h>
 
 #include "ch.h"
@@ -74,12 +75,31 @@ static void cmd_motorrun(BaseSequentialStream *chp, int argc, char *argv[]) {
 }
 
 /**
+ * @brief Command Get Motor Run Status
+ * @details Command to Get if a motor still run or not
+ * @details This is just programmatically checking
+ * @details Must be called from shell thread
+ */
+static void cmd_motorstt(BaseSequentialStream *chp, int argc, char *argv[]) {
+    uint8_t motstt;
+
+    if(argc != 3){chprintf(chp,"Usage: morun <number>\r\n");return;}
+
+    motstt = motor_IsRun(atoi(argv[0]));
+
+    if(motstt==MOTOR_ON){chprintf(chp,"ON\r\n");}
+    else{chprintf(chp,"OFF\r\n");}
+}
+
+
+/**
  * @brief Shell command array
  */
 static const ShellCommand commands[] = {
     {"test", cmd_test},
     {"motes",cmd_motortest},
     {"morun",cmd_motorrun},
+    {"mostt",cmd_motorstt},
     {NULL, NULL}
 };
 
