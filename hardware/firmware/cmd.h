@@ -15,6 +15,11 @@
  */
 #define SHELL_ECHO FALSE
 
+/**
+ * @brief Shell also using UART1
+ */
+#define SHELL_UART TRUE
+
 void cmd_Init(void);
 void cmd_Loop(void);
 

@@ -13,6 +13,9 @@
 #include "hal.h"
 
 #include "chprintf.h"
+#include "pal.h"
+#include "pal_lld.h"
+#include "serial.h"
 #include "shell.h"
 
 #include "usbcdc.h"
@@ -26,9 +29,14 @@ extern const USBConfig usbcfg;
 extern const SerialUSBConfig serusbcfg;
 
 /**
- * @brief Shell thread object
+ * @brief USB Serial Shell thread object
  */
 static thread_t *shelltp = NULL;
+
+/**
+ * @brief UART Serial Shell thread object
+ */
+static thread_t *sershelltp = NULL;
 
 /**
  * @brief Command Test
@@ -91,7 +99,6 @@ static void cmd_motorstt(BaseSequentialStream *chp, int argc, char *argv[]) {
     else{chprintf(chp,"OFF\r\n");}
 }
 
-
 /**
  * @brief Shell command array
  */
@@ -104,10 +111,18 @@ static const ShellCommand commands[] = {
 };
 
 /**
- * @brief Shell config array
+ * @brief USB Shell config array
  */
 static const ShellConfig shell_cfg = {
     (BaseSequentialStream *)&SDU1,
+    commands
+};
+
+/**
+ * @brief UART Shell config array
+ */
+static const ShellConfig sershell_cfg = {
+    (BaseSequentialStream *)&SD1,
     commands
 };
 
@@ -123,6 +138,12 @@ void cmd_Init(void){
     usbStart(serusbcfg.usbp, &usbcfg);
     usbConnectBus(serusbcfg.usbp);
 
+#if SHELL_UART
+    palSetPadMode(GPIOA, 9, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+    palSetPadMode(GPIOA, 10, PAL_MODE_INPUT);
+    sdStart(&SD1, NULL);
+#endif
+
     shellInit();
 }
 
@@ -136,6 +157,17 @@ void cmd_Loop(void){
       chThdRelease(shelltp);
       shelltp = NULL;
     }
+
+#if SHELL_UART
+    if(!sershelltp)
+        shelltp = shellCreate(&sershell_cfg, SHELL_WA_SIZE, NORMALPRIO);
+    else if (chThdTerminatedX(sershelltp)) {
+        chThdRelease(sershelltp);
+        sershelltp = NULL;
+    }
+#endif
+
+   chThdSleepMilliseconds(100);
 }
 
 /** @} */

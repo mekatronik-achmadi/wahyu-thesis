@@ -113,7 +113,7 @@ CSRC =  $(STARTUPSRC) \
         $(HALSRC) \
         $(PLATFORMSRC) \
         $(BOARDSRC) \
-		    $(CHIBIOS)/os/various/syscalls.c \
+		$(CHIBIOS)/os/various/syscalls.c \
         $(CHIBIOS)/os/various/evtimer.c \
         shell.c \
         $(CHIBIOS)/os/hal/lib/streams/chprintf.c \

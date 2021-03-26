@@ -45,10 +45,10 @@ int main(void) {
 
   palSetPadMode(GPIOC,13,PAL_MODE_OUTPUT_PUSHPULL);
   chThdCreateStatic(waLED, sizeof(waLED), NORMALPRIO, thdLED, NULL);
-  
+
   while(true){
     cmd_Loop();
-    chThdSleepMilliseconds(1000);
+    chThdSleepMilliseconds(500);
   }
 }
 
