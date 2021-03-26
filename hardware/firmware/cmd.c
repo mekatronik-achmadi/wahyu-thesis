@@ -91,7 +91,7 @@ static void cmd_motorrun(BaseSequentialStream *chp, int argc, char *argv[]) {
 static void cmd_motorstt(BaseSequentialStream *chp, int argc, char *argv[]) {
     uint8_t motstt;
 
-    if(argc != 3){chprintf(chp,"Usage: morun <number>\r\n");return;}
+    if(argc != 1){chprintf(chp,"Usage: mostt <number>\r\n");return;}
 
     motstt = motor_IsRun(atoi(argv[0]));
 
@@ -145,6 +145,10 @@ void cmd_Init(void){
 #endif
 
     shellInit();
+
+#if SHELL_UART
+    chprintf((BaseSequentialStream *)&SD1, "Serial UART enabled\r\n");
+#endif
 }
 
 /**
@@ -158,16 +162,18 @@ void cmd_Loop(void){
       shelltp = NULL;
     }
 
+    chThdSleepMilliseconds(500);
+
 #if SHELL_UART
     if(!sershelltp)
-        shelltp = shellCreate(&sershell_cfg, SHELL_WA_SIZE, NORMALPRIO);
+        sershelltp = shellCreate(&sershell_cfg, SHELL_WA_SIZE, NORMALPRIO);
     else if (chThdTerminatedX(sershelltp)) {
         chThdRelease(sershelltp);
         sershelltp = NULL;
     }
-#endif
 
-   chThdSleepMilliseconds(100);
+    chThdSleepMilliseconds(500);
+#endif
 }
 
 /** @} */
