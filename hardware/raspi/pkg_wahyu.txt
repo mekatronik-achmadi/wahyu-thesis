@@ -16,4 +16,5 @@ vim-tagbar vim-airline vim-surround
 
 openssh bmon
 
-git nodejs
+nodejs npm yarn
+git minicom

@@ -13,3 +13,50 @@ exit
 ~~~
 systemctl enable sshd.service
 ~~~
+
+##### disable audit messages (qemu-chroot)
+
+~~~
+sed -i '$s/$/ audit=0/' /boot/cmdline.txt
+~~~
+
+##### generate locale (qemu-chroot)
+
+~~~
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "en_US ISO-8859-1" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+locale-gen
+~~~
+
+##### sudoers no password (qemu-chroot)
+
+~~~
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+~~~
+
+##### disable passwords (qemu-chroot)
+
+~~~
+passwd -d root
+passwd -d alarm
+~~~
+
+##### console font (qemu-chroot)
+
+~~~
+echo "FONT=ter-112n
+FONT_MAP=8859-2
+" > /etc/vconsole.conf
+~~~
+
+##### cli autologin (qemu-chroot)
+
+~~~
+mkdir -p /etc/systemd/system/getty@tty1.service.d/
+
+echo "[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin root --noclear %I 38400 linux
+" > /etc/systemd/system/getty@tty1.service.d/autologin.conf
+~~~
