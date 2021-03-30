@@ -20,6 +20,7 @@ extern SerialUSBDriver SDU1;
  * @brief Motor 1 Run status variable
  */
 uint8_t motor1_run = MOTOR_OFF;
+uint16_t motor1_spd = 500;
 static uint8_t motor1_dir = MOTOR1_CW;
 static uint16_t motor1_step;
 
@@ -27,6 +28,7 @@ static uint16_t motor1_step;
  * @brief Motor 2 Run status variable
  */
 uint8_t motor2_run = MOTOR_OFF;
+uint16_t motor2_spd = 500;
 static uint8_t motor2_dir = MOTOR2_CW;
 static uint16_t motor2_step;
 
@@ -34,6 +36,7 @@ static uint16_t motor2_step;
  * @brief Motor 3 Run status variable
  */
 uint8_t motor3_run = MOTOR_OFF;
+uint16_t motor3_spd = 500;
 static uint8_t motor3_dir = MOTOR3_CW;
 static uint16_t motor3_step;
 
@@ -41,6 +44,7 @@ static uint16_t motor3_step;
  * @brief Motor 4 Run status variable
  */
 uint8_t motor4_run = MOTOR_OFF;
+uint16_t motor4_spd = 500;
 static uint8_t motor4_dir = MOTOR4_CW;
 static uint16_t motor4_step;
 
@@ -67,9 +71,9 @@ static Motor1_runLoop(thdMot1_Run, arg) {
 
             for(stepItr=0;stepItr<motor1_step;stepItr++){
                 palSetPad(MOTOR1_PORT,MOTOR1_STEP);
-                chThdSleepMicroseconds(MOTOR_SPEED);
+                chThdSleepMicroseconds(motor1_spd);
                 palClearPad(MOTOR1_PORT,MOTOR1_STEP);
-                chThdSleepMicroseconds(MOTOR_SPEED);
+                chThdSleepMicroseconds(motor1_spd);
             }
             motor1_run = MOTOR_OFF;
         }
@@ -102,9 +106,9 @@ static Motor2_runLoop(thdMot2_Run, arg) {
 
             for(stepItr=0;stepItr<motor2_step;stepItr++){
                 palSetPad(MOTOR2_PORT,MOTOR2_STEP);
-                chThdSleepMicroseconds(MOTOR_SPEED);
+                chThdSleepMicroseconds(motor2_spd);
                 palClearPad(MOTOR2_PORT,MOTOR2_STEP);
-                chThdSleepMicroseconds(MOTOR_SPEED);
+                chThdSleepMicroseconds(motor2_spd);
             }
             motor2_run = MOTOR_OFF;
         }
@@ -137,9 +141,9 @@ static Motor3_runLoop(thdMot3_Run, arg) {
 
             for(stepItr=0;stepItr<motor3_step;stepItr++){
                 palSetPad(MOTOR3_PORT,MOTOR3_STEP);
-                chThdSleepMicroseconds(MOTOR_SPEED);
+                chThdSleepMicroseconds(motor3_spd);
                 palClearPad(MOTOR3_PORT,MOTOR3_STEP);
-                chThdSleepMicroseconds(MOTOR_SPEED);
+                chThdSleepMicroseconds(motor3_spd);
             }
             motor3_run = MOTOR_OFF;
         }
@@ -172,9 +176,9 @@ static Motor4_runLoop(thdMot4_Run, arg) {
 
             for(stepItr=0;stepItr<motor4_step;stepItr++){
                 palSetPad(MOTOR4_PORT,MOTOR4_STEP);
-                chThdSleepMicroseconds(MOTOR_SPEED);
+                chThdSleepMicroseconds(motor4_spd);
                 palClearPad(MOTOR4_PORT,MOTOR4_STEP);
-                chThdSleepMicroseconds(MOTOR_SPEED);
+                chThdSleepMicroseconds(motor4_spd);
             }
             motor4_run = MOTOR_OFF;
         }
@@ -190,13 +194,17 @@ static Motor4_runLoop(thdMot4_Run, arg) {
  * @param uint8_t Motor Number, either 1, 2, 3, or 4
  * @param uint8_t Motor Direction, either 0 or 1
  * @param uint16_t Motor Step amount
+ * @param uint16_t Motor Interval signal
  */
-void motor_Run(uint8_t mot_num, uint8_t mot_dir, uint16_t mot_step){
+void motor_Run(uint8_t mot_num, uint8_t mot_dir, uint16_t mot_step, uint16_t mot_spd){
+    if(mot_spd<100) mot_spd = 100;
+    if(mot_spd>10000) mot_spd = 10000;
+
     switch(mot_num){
-        case MOTOR1: motor1_dir = mot_dir; motor1_step = mot_step; motor1_run = MOTOR_ON; break;
-        case MOTOR2: motor2_dir = mot_dir; motor2_step = mot_step; motor2_run = MOTOR_ON; break;
-        case MOTOR3: motor3_dir = mot_dir; motor3_step = mot_step; motor3_run = MOTOR_ON; break;
-        case MOTOR4: motor4_dir = mot_dir; motor4_step = mot_step; motor4_run = MOTOR_ON; break;
+        case MOTOR1: motor1_dir = mot_dir; motor1_step = mot_step; motor1_spd = mot_spd; motor1_run = MOTOR_ON; break;
+        case MOTOR2: motor2_dir = mot_dir; motor2_step = mot_step; motor2_spd = mot_spd; motor2_run = MOTOR_ON; break;
+        case MOTOR3: motor3_dir = mot_dir; motor3_step = mot_step; motor3_spd = mot_spd; motor3_run = MOTOR_ON; break;
+        case MOTOR4: motor4_dir = mot_dir; motor4_step = mot_step; motor4_spd = mot_spd; motor4_run = MOTOR_ON; break;
     }
 }
 
