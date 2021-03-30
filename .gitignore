@@ -8,3 +8,5 @@
 /hardware/pcb/bom/
 /hardware/pcb/*-bak
 /hardware/pcb/*-cache.lib
+/hardware/raspi/arm-rpi
+/hardware/raspi/arm-rpi2
