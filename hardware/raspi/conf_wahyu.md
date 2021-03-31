@@ -8,6 +8,12 @@ exit
 exit
 ~~~
 
+##### replace nano
+
+~~~
+ln -svf /usr/bin/vim /usr/bin/nano
+~~~
+
 ##### ssh server
 
 ~~~

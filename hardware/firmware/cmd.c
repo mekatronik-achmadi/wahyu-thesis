@@ -157,7 +157,11 @@ void cmd_Init(void){
  * @brief Shell Loop checking
  */
 void cmd_Loop(void){
+#if USB_NOCHK
+    if(!shelltp)
+#else
     if (!shelltp && (SDU1.config->usbp->state == USB_ACTIVE))
+#endif
       shelltp = shellCreate(&shell_cfg, SHELL_WA_SIZE, NORMALPRIO);
     else if (chThdTerminatedX(shelltp)) {
       chThdRelease(shelltp);

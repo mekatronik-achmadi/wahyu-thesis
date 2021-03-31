@@ -14,7 +14,7 @@ vim vim-ctrlp vim-nerdtree
 vim-ultisnips vim-nerdcommenter
 vim-tagbar vim-airline vim-surround
 
-openssh bmon
+openssh sshfs bmon
 
 nodejs npm yarn
 git minicom

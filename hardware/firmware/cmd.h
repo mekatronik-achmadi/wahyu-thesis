@@ -20,6 +20,11 @@
  */
 #define SHELL_UART TRUE
 
+/**
+ * @brief USB shell run without check
+ */
+#define USB_NOCHK  TRUE
+
 void cmd_Init(void);
 void cmd_Loop(void);
 
