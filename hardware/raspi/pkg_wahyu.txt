@@ -14,7 +14,14 @@ vim vim-ctrlp vim-nerdtree
 vim-ultisnips vim-nerdcommenter
 vim-tagbar vim-airline vim-surround
 
-openssh sshfs bmon
+bind-tools netctl ppp wpa_supplicant
+traceroute wavemon mtr bmon nethogs
+tcpdump fping gnu-netcat inetutils
+net-tools bridge-utils iwd ethtool
+crda wireless_tools usb_modeswitch
+iw dhclient dnsmasq iftop dialog
+
+openssh sshfs bmon usbutils
 
 nodejs npm yarn
 git minicom

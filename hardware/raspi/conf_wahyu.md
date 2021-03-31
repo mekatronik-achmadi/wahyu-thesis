@@ -14,6 +14,20 @@ exit
 ln -svf /usr/bin/vim /usr/bin/nano
 ~~~
 
+##### config vim
+
+~~~
+echo '" /usr/share/vim/vimfiles/archlinux.vim' > /etc/vimrc
+echo 'runtime! archlinux.vim' >> /etc/vimrc
+echo 'autocmd BufWritePre * %s/\s\+$//e' >> /etc/vimrc
+echo 'filetype plugin on' >> /etc/vimrc
+echo 'set expandtab ts=4 sw=4 ai'  >> /etc/vimrc
+echo 'filetype plugin indent on' >> /etc/vimrc
+echo 'set ic is hls'  >> /etc/vimrc
+echo 'set number'  >> /etc/vimrc
+echo 'set wrap!'  >> /etc/vimrc
+~~~
+
 ##### ssh server
 
 ~~~
@@ -45,7 +59,16 @@ echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 ~~~
 passwd -d root
-passwd -d alarm
+~~~
+
+##### configure tty access
+
+~~~
+sudo groupadd -fr lock
+sudo groupadd -fr uucp
+
+sudo gpasswd -a alarm lock
+sudo gpasswd -a alarm uucp
 ~~~
 
 ##### console font (qemu-chroot)
@@ -63,6 +86,6 @@ mkdir -p /etc/systemd/system/getty@tty1.service.d/
 
 echo "[Service]
 ExecStart=
-ExecStart=-/sbin/agetty --autologin root --noclear %I 38400 linux
+ExecStart=-/sbin/agetty --autologin alarm --noclear %I 38400 linux
 " > /etc/systemd/system/getty@tty1.service.d/autologin.conf
 ~~~
